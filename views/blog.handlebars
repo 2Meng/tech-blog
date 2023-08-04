@@ -1,13 +1,13 @@
 
-{{#each blogs }}
-<div class="text-center">
-  <h2 blog-id="{{id}}">{{name}}</h2>
-  <p>{{{get_emoji}}}</p>
-  <p>{{text}}</p>
-  <p>Created by {{user.name}} on {{format_date blog.date_created}}</p>
 
-  {{#each comments as |comment| }}
-<p>{{text}}</p>
+<div class="text-center">
+  <h2 blog-id={{blog.id}}>{{blog.name}}</h2>
+  <p>{{{get_emoji}}}</p>
+  <p>{{blog.text}}</p>
+  <p>Created by {{blog.user.name}} on {{format_date blog.date_created}}</p>
+
+  {{#each blog.comments as |comment| }}
+<p>{{comment.text}}</p>
   {{/each}}
 </div>
 
@@ -19,6 +19,6 @@
     <button type="submit" class="btn btn-primary">Comment</button>
   </form>
 </div>
-{{/each}}
+
 
 <script src="/public/js/blog.js"></script>
