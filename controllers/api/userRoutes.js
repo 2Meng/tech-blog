@@ -1,5 +1,25 @@
 const router = require('express').Router();
 const { User } = require('../../models');
+const withAuth = require('../../utils/auth');
+
+router.get('/profile', withAuth, async (req, res) => {
+  try {
+    // Get the logged-in user by primary key
+    const userData = await User.findByPk(req.session.user_id);
+
+    if (!userData) {
+      res.status(404).json({ message: 'User not found' });
+      return;
+    }
+
+    res.render('profile', {
+      user: userData.get({ plain: true }),
+      logged_in: true
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 router.post('/', async (req, res) => {
   try {
